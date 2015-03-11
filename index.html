@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="noteApp">
+<head>
+	<title>Andel Note App</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+<body ng-controller="mainController as ctrl">
+
+<div id="wrapper" class="container">
+	<div class="main-wrap row">
+		<div class="col-md-4 andel-static"><h1><img src="assets/img/logo.png" class="logo"></h1></div>
+
+		<div class="col-md-8 andel-list">
+			<h1 class="pull=left">Note list
+				<button type="button" class="pull-right btn btn-primary" ng-show="ctrl.showBtn" ng-click="ctrl.showNote()">CREATE</button>
+			</h1><hr/>
+
+			<section ng-repeat="list in ctrl.listNotes">
+				<div class="panel panel-default" ng-click="ctrl.isSelected(list)">
+					<div class="panel-heading">{{list.title}} <span class="pull-right badge">{{list.createdOn | date:'medium'}}</span></div>
+					<textarea type="text" ng-show="list.select" rows="7" ng-model="list.content" class="form-control"></textarea>
+				</div>	
+					<input type="button" ng-show="list.select" ng-click="ctrl.save(list)" class="btn btn-success pull-right" value="Save">
+					<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">	
+
+			</section>
+
+			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
+				<create-note></create-note>
+			</div>
+		</div>
+	</div>	
+	
+</div>
+
+	<!-- JavaScript -->
+	<script src="js/vendor/jquery-1.11.2.js"></script>
+	<script src="js/vendor/bootstrap.js"></script>
+	<!--<script src="js/npm.js"></script> -->
+	<script src="js/vendor/angular.js"></script>
+	<script src="js/app/app.js"></script>
+	<script src="js/app/create-note/services.js"></script>
+	<!-- <script src="js/app/create-note/controller.js"></script> -->
+</body>
+</html>
