@@ -18,13 +18,20 @@
 
 			<section ng-repeat="list in ctrl.listNotes">
 				<div class="panel panel-default" ng-click="ctrl.isSelected(list)">
-					<div class="panel-heading">{{list.title}} <span class="pull-right badge">{{list.createdOn | date:'medium'}}</span></div>
-					<textarea type="text" ng-show="list.select" rows="7" ng-model="list.content" class="form-control"></textarea>
-				</div>	
+					<div class="panel-heading" ng-hide="list.select">{{list.title}} <span class="pull-right badge">{{list.createdOn | date:'medium'}}</span></div>
+					<!-- <div class="panel-body">{{list.content}}</div> -->
+				</div>
+				<div ng-show="list.select" class="form-control edit-form">
+					<input type="text" ng-show="list.select" ng-model="list.title" class="form-control"><br/>
+					<textarea type="text" rows="7" ng-model="list.content" class="form-control"></textarea><br/><br/>
 					<input type="button" ng-show="list.select" ng-click="ctrl.save(list)" class="btn btn-success pull-right" value="Save">
-					<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">	
-
+					<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">
+				</div>
 			</section>
+					
+						
+
+			
 
 			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
 				<create-note></create-note>
@@ -37,10 +44,8 @@
 	<!-- JavaScript -->
 	<script src="js/vendor/jquery-1.11.2.js"></script>
 	<script src="js/vendor/bootstrap.js"></script>
-	<!--<script src="js/npm.js"></script> -->
 	<script src="js/vendor/angular.js"></script>
 	<script src="js/app/app.js"></script>
 	<script src="js/app/create-note/services.js"></script>
-	<!-- <script src="js/app/create-note/controller.js"></script> -->
 </body>
 </html>

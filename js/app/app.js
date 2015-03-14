@@ -13,6 +13,7 @@
 
  		this.listNotes = newNote.noteList;
 
+ 		/* Create new note */
  		this.newForm = function(mydata){
 			this.showForm = true;
 			this.showBtn = false;
@@ -27,7 +28,7 @@
 			this.showForm = true;
 		};
 
-		/* this cancels a form without eaving */
+		/* Discards */
 		this.discard = function(){
 			this.showForm = false;
 			this.showBtn = true;

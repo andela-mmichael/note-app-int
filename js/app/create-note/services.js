@@ -1,6 +1,7 @@
 angular.module('noteApp')
 	.service('newNote', function(){
 
+	/* stores the list of notes */
 	this.noteList = [
 			{
 		 		title: 'Welcome to Andel Note',
@@ -17,8 +18,6 @@ angular.module('noteApp')
 		newData.content = mydata.content;
 		newData.createdOn = new Date();
 		this.noteList.push(newData);
-		//this.noteList.created = new Date();
-		//return 
 	};	
 
 	/* Hides the content after editing */
