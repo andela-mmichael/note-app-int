@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Andel Note App</title>
+	<link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+</head>
+<body id="wrapper">
+
+<div class="overlay">
+	<!-- <div class="pop-up-wrap"> -->
+			<div class="pop-up">	
+				<div class="top"><h4>Choose your preferred background Color</h4><hr /></div>
+				<section class="color-input">
+					Hue: <input type="number" style="width:70px; margin-right:10px;" min="1" max="255" />
+					Saturation: <input type="number" style="width:70px; margin-right:10px;" min="1" max="100" />
+					Light: <input type="number" style="width:70px; margin-right:10px;" min="1" max="100" />
+				</section><hr/>
+				<section>
+					<div class="color-view"></div>
+				</section>
+				<hr/>
+				<section class="color-btn">
+					<button type="button" class="btn btn-danger">Cancel</button>
+					<button typr="button" class="btn btn-success pull-right">Save Color</button>
+				</section>
+			</div>
+	<!-- 	</div> -->
+	</div>
+	
+</div>
+
+
+
+	<!-- JavaScript -->
+	<script src="../../js/vendor/jquery-1.11.2.js"></script>
+	<script src="../../js/vendor/bootstrap.js"></script>
+	<script src="../../js/vendor/angular.js"></script>
+	<script src="../../js/app/app.js"></script>
+	<script src="../../js/app/create-note/controller.js"></script>
+	<script src="../../js/app/create-note/services.js"></script>
+	<script src="../../js/app/create-note/directives.js"></script>
+</body>
+</html>

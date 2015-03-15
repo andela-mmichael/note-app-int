@@ -6,10 +6,13 @@ angular.module('noteApp')
 
  		this.listNotes = newNote.noteList;
 
+ 		/* Create new note */
  		this.newForm = function(mydata){
 			this.showForm = true;
 			this.showBtn = false;
- 			var data = newNote.addNote(mydata);
+ 			newNote.addNote(mydata);
+ 			this.showBtn = true;
+ 			this.showForm = false;
  		};
  		
 		/* Displays the form */
@@ -18,15 +21,23 @@ angular.module('noteApp')
 			this.showForm = true;
 		};
 
-		/* this cancels a form without eaving */
+		/* Discards */
 		this.discard = function(){
 			this.showForm = false;
 			this.showBtn = true;
 		};
 
-		/*this.selected = function(lis){
-			newNote.isSelected(list);
-		};*/
-			
+		/* Shows the content for editing. */
+		this.isSelected = function(list){
+			list.select = true;
+		};
+
+		this.save = function(list){
+			newNote.edited(list);
+		};
+
+		this.remove = function(list, $index){
+			newNote.deleteNote(list, $index);
+		};
 
  	}]);

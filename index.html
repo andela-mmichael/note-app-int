@@ -14,7 +14,8 @@
 		<div class="col-md-8 andel-list">
 			<h1 class="pull=left">Note list
 				<button type="button" class="pull-right btn btn-primary" ng-show="ctrl.showBtn" ng-click="ctrl.showNote()">CREATE</button>
-			</h1><hr/>
+			</h1>
+			<hr/>
 
 			<section ng-repeat="list in ctrl.listNotes">
 				<div class="panel panel-default" ng-click="ctrl.isSelected(list)">
@@ -28,10 +29,6 @@
 					<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">
 				</div>
 			</section>
-					
-						
-
-			
 
 			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
 				<create-note></create-note>
@@ -46,6 +43,8 @@
 	<script src="js/vendor/bootstrap.js"></script>
 	<script src="js/vendor/angular.js"></script>
 	<script src="js/app/app.js"></script>
+	<script src="js/app/create-note/controller.js"></script>
 	<script src="js/app/create-note/services.js"></script>
+	<script src="js/app/create-note/directives.js"></script>
 </body>
 </html>
