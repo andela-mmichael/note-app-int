@@ -1,60 +1,56 @@
 angular.module('noteApp')
 	.controller('mainController', ['newNote', function(newNote) {
-		this.colour = {
-		// red: 0,
-		// green: 0,
-		// blue: 0
-		};
+
+ 		/*this.noteList = [
+			{
+		 		title: 'Welcome to Andel Note',
+		 		content: 'This is a default content for the Andel note app. You can add, delete and edit notes. Do check it out.',
+		 		select: false,
+		 		createdOn: new Date(),
+		 		bgdColour: null,
+		 		txtColour: null
+		 	}
+		];
+		*/
+		this.listNotes = newNote.noteList;
+		
  		this.showForm = false;
  		this.showBtn = true;
  		this.show = false;
 
- 		this.listNotes = newNote.noteList;
-
  		/* Create new note */
- 		this.newForm = function(mydata){
+ 		this.newForm = function(){
 			this.showForm = true;
 			this.showBtn = false;
- 			newNote.addNote(mydata);
+ 			newNote.addNote(this.mydata);
+ 			this.mydata = {};
  			this.showBtn = true;
  			this.showForm = false;
  		};
- 		this.showColor = function(){
- 			console.log(this.show);
+
+ 		this.showColour = function(){
  			this.show = true;
- 			console.log(true);
-
  		};
- 		this.Styles = [];
- 		this.myStyle ={};
- 		 this.MyStyle = function(red,green,blue){
-        this.style = {background: 'hsl('+red+','+green+'%'+','+blue+'%'+')'};
+
+    this.setBackgroundColour = function(colour){
+    	this.userBgColour = newNote.setColour(colour);
+    	console.log(this.userBgColour);
+	    this.show = false;
+			this.showForm = true;
     };
-		this.setBackground = function(value){
- 	//		this.style = {};
- 	//	this.MyStyles = function(red,green,blue){
-      //  this.style = {background: 'hsl('+red+','+green+'%'+','+blue+'%'+')'};
 
-      this.colour = angular.copy(value);
-      this.show = false;
- 			this.showForm = true;
- 			this.style = new MyStyle(colour.red, colour.green, colour.blue);
-      this.Styles.push(style);
- 		};
- 		this.setTextColor = function(data){
- 			this.colour = angular.copy(data);
- 			this.show=false;
- 			this.showForm = true;
- 			newNote.addNote.bgdColor = {color:'hsl('+this.colour.red+','+this.colour.green+'%'+','+this.colour.blue+'%'+')'};
- 			this.myStyle.style = {color:'hsl('+this.colour.red+','+this.colour.green+'%'+','+this.colour.blue+'%'+')'};
- 			 };
+    this.setTextColour = function(colour){
+    	this.userTxtColour = newNote.setColour(colour);
+    	console.log(this.userTxtColour);
+	    this.show = false;
+			this.showForm = true;
+    };
 
- 		
- 		this.back = function()
- 		{
+ 		this.back = function(){
  			this.show = false;
  			this.showForm = true;
- 		}
+ 		};
+
 		/* Displays the form */
 		this.showNote = function(){
 			this.showBtn = false;
@@ -72,10 +68,12 @@ angular.module('noteApp')
 			list.select = true;
 		};
 
+		/* Save Edited Note */
 		this.save = function(list){
 			newNote.edited(list);
 		};
 
+		/* Delete Note */
 		this.remove = function(list, $index){
 			newNote.deleteNote(list, $index);
 		};

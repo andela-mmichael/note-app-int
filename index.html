@@ -24,7 +24,7 @@
 				</div>
 				<div ng-show="list.select" class="form-control edit-form">
 					<input type="text" ng-show="list.select" ng-model="list.title" class="form-control"><br/>
-					<textarea type="text" rows="7" ng-model="list.content"  ng-style="ctrl.myStyle.style"class="form-control"></textarea><br/><br/>
+					<textarea type="text" rows="7" ng-model="list.content"  style="background-color: {{list.bgdColour}}; color: {{list.txtColour}}" class="form-control"></textarea><br/><br/>
 					<input type="button" ng-show="list.select" ng-click="ctrl.save(list)" class="btn btn-success pull-right" value="Save">
 					<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">
 				</div>
@@ -32,35 +32,33 @@
 
 			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
 				<!--<create-note></create-note>-->
-			<form class="noteAppForm">
-				<label>Title: </label><br/><input type="text" ng-model="mydata.title" required/><br/><br/>
-				<label>Note: </label><textarea class="form-control" ng-style="ctrl.myStyle" ng-model="mydata.content" rows="7"></textarea><br/><br/>
-				<button type="button" ng-click="ctrl.discard()" class="btn btn-danger">Discard</button>
-				<button type="button"  ng-click="ctrl.showColor()" class="btn btn-success pull-center">Colour</button>
-				<input type="submit" value="Save" class="btn btn-success pull-right" ng-click="ctrl.newForm(mydata)"/>
-			</form>
+				<form class="noteAppForm" ng-submit="ctrl.newForm()">
+					<label>Title: </label><br/><input type="text" ng-model="ctrl.mydata.title" required/><br/><br/>
+					<label>Note: </label><textarea class="form-control" ng-model="ctrl.mydata.content" style="background-color: {{ctrl.userBgColour}}; color: {{ctrl.userTxtColour}}" rows="7"></textarea><br/><br/>
+					<button type="button" ng-click="ctrl.discard()" class="btn btn-danger">Discard</button>
+					<button type="button" ng-click="ctrl.showColour()" class="btn btn-success pull-center">Choose Colour</button>
+					<button type="submit" class="btn btn-success pull-right">Save</button>
+				</form>
 			</div>
+
 			<div class="overlay" ng-show="ctrl.show">
-	<!-- <div class="pop-up-wrap"> -->
 				<div class="pop-up" >	
-					<div class="top"><h4>Choose your preferred Color</h4><hr />
-						</div>
-				<section class="color-input">
-					Hue: <input type="number" ng-model = "colour.red"style="width:70px; margin-right:10px;" min="0" max="360" />
-					Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin-right:10px;" min="0" max="100" />
-					Light: <input type="number" ng-model="colour.green" style="width:70px; margin-right:10px;" min="0" max="100" />
-				</section><hr/>
-				<section>
-					<div class="color-view" style="background-color:hsl({{colour.red}},{{colour.blue+'%'}},{{colour.green+'%'}})"></div>
-				</section>
-				<hr/>
-				<section class="color-btn">
-					<button type="button" ng-click="ctrl.back();" class="btn btn-danger">Cancel</button>
-					<button type="button" ng-click="ctrl.back();" ng-click="ctrl.setTextColor" class="btn btn-success">Save as text color</button>
-					<button typr="button" ng-click="ctrl.setBackground(colour)" class="btn btn-success pull-right">Save as Background Color</button>
-				</section>
-			</div>
-	<!-- 	</div> -->
+					<div class="top"><h4>Choose your preferred colour</h4><hr/></div>
+					<section class="colour-input">
+						Hue: <input type="number" ng-model = "colour.red" style="width:70px; margin-right:10px;" min="0" max="360" />
+						Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin-right:10px;" min="0" max="100" />
+						Light: <input type="number" ng-model="colour.green" style="width:70px; margin-right:10px;" min="0" max="100" />
+					</section><hr/>
+					<section>
+						<div class="colour-view" style="background-color: hsl({{colour.red}},{{colour.blue +'%'}},{{colour.green +'%'}}); color: hsl({{colour.red}},{{colour.blue +'%'}},{{colour.green +'%'}})"></div>
+					</section>
+					<hr/>
+					<section class="colour-btn">
+						<button type="button" ng-click="ctrl.back();" class="btn btn-danger">Cancel</button>
+						<button type="button" ng-click="ctrl.setTextColour(colour)" class="btn btn-success">Save as Text Colour</button>
+						<button typr="button" ng-click="ctrl.setBackgroundColour(colour)" class="btn btn-success pull-right">Save as Background Colour</button>
+					</section>
+				</div>
 			</div>
 		</div>
 	</div>	
