@@ -2,7 +2,7 @@ angular.module('noteApp')
 	.service('newNote', function(){
 
 	/* stores the list of notes */
-	/*this.noteList = [
+	this.noteList = [
 			{
 		 		title: 'Welcome to Andel Note',
 		 		content: 'This is a default content for the Andel note app. You can add, delete and edit notes. Do check it out.',
@@ -11,16 +11,15 @@ angular.module('noteApp')
 		 		bgdColour: null,
 		 		txtColour: null
 		 	}
-		];*/
+		];
 
 	/* Creates a new note */
 	this.addNote = function(mydata){
-		//console.log(mydata);
 		var newData = mydata;
 		newData.createdOn = new Date();
-		newData.bgdColour = this.colourPalette;
+		newData.bgdColour = this.userBgdColour;
+		newData.txtColour = this.userTxtColour;
 		this.noteList.push(newData);
-		//this.colourPalette = null;
 	};	
 
 	/* Hides the content after editing */
@@ -36,16 +35,17 @@ angular.module('noteApp')
 		this.noteList.splice(this.noteList.indexOf(list), $index);
 	};
 
-	this.setColour = function(colour){
+	this.getBackgroundColour = function(colour){
     var newColour = angular.copy(colour);
-		this.colourPalette = this.colourStyle(newColour.red, newColour.green, newColour.blue);
-    return this.colourPalette;
+		this.userBgdColour = 'hsl('+ newColour.red + ',' + newColour.green + '%' + ','+ newColour.blue + '%' + ')';
+    return this.userBgdColour;
 	};
 	
-  this.colourStyle = function(red,green,blue){
-    var colourVal = 'hsl('+ red + ',' + green + '%' + ','+ blue + '%' + ')';
-    return colourVal;
-  };
+  this.getTextColour = function(colour){
+    var newColour = angular.copy(colour);
+		this.userTxtColour = 'hsl('+ newColour.red + ',' + newColour.green + '%' + ','+ newColour.blue + '%' + ')';
+    return this.userTxtColour;
+	};
         	
 });
 	
