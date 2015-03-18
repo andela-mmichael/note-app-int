@@ -29,13 +29,12 @@ angular.module('noteApp')
     };
 
     this.setBackgroundColour = function(colour){
-    	this.userBgColour = newNote.getBackgroundColour(colour);
-    	//console.log(this.userBgColour);
+    	this.userBgdColour = newNote.getBackgroundColour(colour);
 	    this.show = false;
 			this.showForm = true;
     };
-    
- 		this.back = function(){
+
+ 		this.goBack = function(){
  			this.show = false;
  			this.showForm = true;
  		};

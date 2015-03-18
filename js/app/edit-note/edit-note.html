@@ -1,0 +1,6 @@
+<form ng-submit="ctrl.save(list)" class="edit-form">
+	<input type="text" ng-show="list.select" ng-model="list.title" class="form-control"><br/>
+	<textarea type="text" rows="7" ng-model="list.content"  style="background-color: {{list.bgdColour}}; color: {{list.txtColour}}" class="form-control"></textarea><br/><br/>
+	<input type="submit" ng-show="list.select" class="btn btn-success pull-right" value="Save">
+	<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">
+</form>

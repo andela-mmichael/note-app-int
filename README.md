@@ -1,4 +1,4 @@
-# note-app-int
+# Note App
 ==================
 
  A simple note taking app.
