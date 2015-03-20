@@ -64,6 +64,7 @@ angular.module('noteApp')
     this.goBack = function() {
       this.show = false;
       this.showForm = true;
+      this.showForm2 = false;
     };
 
     /* Shows the content for editing. */
