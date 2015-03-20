@@ -5,11 +5,10 @@
 
  (function(){
  	var app = angular.module('noteApp', ['ngMaterial'])
- 		.config(function($mdThemingProvider) {
+ 		.config(function($mdThemingProvider){
   	$mdThemingProvider.theme('default')
-    .primaryPalette('pink')
-    .accentPalette('orange');
-});
-
+    .primaryPalette('blue')
+    .accentPalette('indigo');
+	});
 
 }());

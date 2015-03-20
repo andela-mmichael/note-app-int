@@ -1,83 +1,113 @@
-<!-- <!DOCTYPE html> -->
-<html lang="en" ng-app="noteApp">
+<!DOCTYPE html>
+<html lang="en" ng-app="noteApp" ng-cloak>
 <head>
 	<title>Andel Note App</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-	<!-- <link rel="stylesheet" type="text/css" href="assets/css/angular-material.css"> -->
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/angular-material.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
-<body>
+<body  ng-controller="mainController as ctrl">
 <div id="wrapper" class="container">
-	<div class="main-wrap row">
-		<div class="col-md-4 andel-static"><h1><img src="assets/img/logo.png" class="logo"></h1></div>
-
-		<div class="col-md-8 andel-list" ng-controller="mainController as ctrl">
-			<h1 class="pull=left">Note list
-				<button type="button" class="pull-right btn btn-primary" ng-show="ctrl.showBtn" ng-click="ctrl.showNote()">CREATE</button>
-			</h1><hr/>
-
-			<section ng-repeat="list in ctrl.listNotes">
-				<div class="panel panel-default">
-					<div class="panel-heading" ng-hide="list.select">{{list.title}}
-					<input type="button" ng-click="ctrl.isSelected(list)" class="btn btn-success pull-right" value="Edit">
-						<input type="button" ng-click="ctrl.remove(list, $index)" class="btn btn-danger pull-right" value="Delete">
-						<span class="pull-right badge">{{list.createdOn | date:'medium'}}</span>
+	<div class="main-wrap">
+	  <div layout="row" layout-alignment="center start">
+			<md-toolbar class="md-theme-light">
+		    <h1 class="md-toolbar-tools">
+		      <img src="assets/img/andlogo.png" class="logo">
+		      <span style="text-align: center;">Andel Note App</span>
+		      <span flex></span>
+		      <md-button class="md-raised md-primary md-accent" ng-click="ctrl.showNote()"><span>Create Note</span></md-button>
+		    </h1>
+		  </md-toolbar>
+	  </div>
+		<div layout="row">
+			<div flex class="col-md-8 andel-list">
+				<md-card ng-repeat="list in ctrl.listNotes" class="list">
+					<div layout="row" layout-fill>
+						<div flex="45">
+							{{list.title}}
+						</div>
+						<div layout-fill>
+							<span class="badge">{{list.createdOn | date:'medium'}}</span>
+								<span class="quick"><md-button ng-click="ctrl.editPopup($index,list)" class="md-raised md-primary">Edit</md-button></span>
+								<span class="quick"><md-button ng-click="ctrl.remove(list, $index)" class="md-raised md-warn">Delete</md-button></span>
+						</div>
 					</div>
-				</div>
-				<div ng-show="list.select" class="overlay form-control">
-					<!-- <edit-note></edit-note> -->
-					<form ng-submit="ctrl.save(list)" class="edit-form">
-						<input type="text" ng-show="list.select" ng-model="list.title" class="form-control"><br/>
-						<textarea type="text" rows="7" ng-model="list.content"  style="background-color: {{list.bgdColour}}; color: {{list.txtColour}}" class="form-control"></textarea><br/><br/>
-						<input type="submit" ng-show="list.select" class="btn btn-success pull-right" value="Save">
-						<input type="button" ng-show="list.select" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete">
-					</form>
+				</md-card>
+			</div>
 
-				</div>
-			</section>
-
+			<!-- Create New Note  -->
 			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
 				<!-- <create-note></create-note> -->
 				<form class="noteAppForm" ng-submit="ctrl.newForm()">
-					<label>Title: </label><br/><input type="text" ng-model="ctrl.mydata.title" required/><br/><br/>
-					<label>Note: </label><textarea class="form-control" ng-model="ctrl.mydata.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" rows="7"></textarea><br/><br/>
-					<button type="button" ng-click="ctrl.discard()" class="btn btn-danger">Discard</button>
-					<button type="button" ng-click="ctrl.showColour()" class="btn btn-success pull-center">Choose Colour</button>
-					<button type="submit" class="btn btn-success pull-right">Save</button>
+					<md-input-container>
+					  <label>Title</label>
+					  <input type="text" ng-model="ctrl.mydata.title" required>
+					</md-input-container>
+					<md-input-container>
+					  <label>Note</label>
+					  <textarea ng-model="ctrl.mydata.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
+					</md-input-container>
+
+					<md-button ng-click="ctrl.discard()" class="md-raised md-warn">Discard</md-button>
+					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary">Choose Colour</md-button>
+					<md-button class="md-raised md-primary">Save</md-button>
 				</form>
 			</div>
 
+			 <!-- Edit Note -->
+				<!-- <edit-note></edit-note>  -->
+			<div ng-show="ctrl.showForm2" class="overlay" novalidate>
+				<form ng-submit="ctrl.editText()" class="noteAppForm">
+					<md-input-container>
+					  <label>Title</label>
+					  <input type="text" ng-model="ctrl.selectedList.title" required>
+					</md-input-container>
+					<md-input-container>
+					  <label>Note</label>
+					  <textarea ng-model="ctrl.selectedList.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
+					</md-input-container>
+
+					<md-button ng-click="ctrl.discard()" class="md-raised md-warn">Discard</md-button>
+					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary">Choose Colour</md-button>
+					<md-button ng-click="ctrl.editTextNote()" class="md-raised md-primary">Save</md-button>
+					<!-- <input type="text" ng-model="ctrl.selectedList.title" class="form-control"><br/>
+					<textarea type="text" rows="7" ng-model="ctrl.selectedList.content"  style="background-color: {{list.bgdColour}}; color: {{list.txtColour}}" class="form-control"></textarea><br/><br/>
+					<input type="submit" ng-click="ctrl.editTextNote()" class="btn btn-success pull-right" value="Save">
+					<input type="button" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete"> -->
+				</form>
+			</div>
+
+			<!-- Choose Color Form -->
 			<div class="overlay" ng-show="ctrl.show">
 				<div class="pop-up" >	
 					<div class="top"><h4>Choose your preferred colour</h4><hr/></div>
-					<section class="colour-input">
+					<div class="colour-input">
 						Hue: <input type="number" ng-model = "colour.red" style="width:70px; margin-right:10px;" min="0" max="360" />
 						Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin-right:10px;" min="0" max="100" />
 						Light: <input type="number" ng-model="colour.green" style="width:70px; margin-right:10px;" min="0" max="100" />
-					</section><hr/>
-					<section>
-						<div class="colour-view" style="background-color: hsl({{colour.red}},{{colour.blue +'%'}},{{colour.green +'%'}}); color: hsl({{colour.red}},{{colour.blue +'%'}},{{colour.green +'%'}})"></div>
-					</section>
+					</div><hr/>
+					<div>
+						<div class="colour-view" style="background-color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}}); color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}})"></div>
+					</div>
 					<hr/>
-					<section class="colour-btn">
-						<button type="button" ng-click="ctrl.goBack();" class="btn btn-danger pull-right">Cancel</button>
-						<button type="button" ng-click="ctrl.setTextColour(colour)" class="btn btn-success pull-right">Save as Text Colour</button>
-						<button type="button" ng-click="ctrl.setBackgroundColour(colour)" class="btn btn-success pull-right">Save as Background Colour</button>
-					</section>
+					<div class="colour-btn">
+						<md-button ng-click="ctrl.goBack();" class="md-raised md-warn">Cancel</md-button>
+						<md-button ng-click="ctrl.setTextColour(colour)" class="md-raised md-primary">Save as Text Colour</md-button>
+						<md-button ng-click="ctrl.setBackgroundColour(colour)" class="md-raised md-primary">Save as Background Colour</md-button>
+					</div>
 				</div>
 			</div>
+
 		</div>
+
 	</div>	
 	
 </div>
 
-	<!-- Library Dependencies -->
+	<!-- Libraries -->
 	<script src="js/vendor/jquery-1.11.2.js"></script>
-	<script src="js/vendor/bootstrap.js"></script>
-	<!-- // <script src="js/vendor/angular.js"></script> -->
+	<script src="js/vendor/angular.js"></script>
 
 	 <!-- Angular Material Dependencies -->
-	<script src="js/vendor/angular.js"></script>
 	<script src="js/vendor/angular-aria.js"></script>
 	<script src="js/vendor/angular-animate.js"></script>
 	<script src="js/vendor/angular-material.js"></script>
