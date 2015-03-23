@@ -3,6 +3,7 @@
 <head>
 	<title>Andel Note App</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/angular-material.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
 <body  ng-controller="mainController as ctrl">
@@ -14,23 +15,55 @@
 		      <img src="assets/img/andlogo.png" class="logo">
 		      <span style="text-align: center;">Andel Note App</span>
 		      <span flex></span>
-		      <md-button class="md-raised md-primary md-accent" ng-click="ctrl.showNote()"><span>Create Note</span></md-button>
+		      <md-button class="md-fab md-accent" ng-click="ctrl.showNote()">
+		      	<span class="fa fa-plus fa-2x"></span>
+		      	<md-tooltip md-direction="left">Create Note</md-tooltip>
+		      </md-button>
 		    </h1>
 		  </md-toolbar>
 	  </div>
 		<div layout="row">
-			<div flex class="col-md-8 andel-list">
-				<md-card ng-repeat="list in ctrl.listNotes" class="list">
-					<div layout="row" layout-fill>
-						<div flex="50">
-							{{list.title}}
+			<div flex>
+				<md-card ng-repeat="list in ctrl.listNotes">
+					<md-list role="list">
+						<md-item-content>
+							<div style="margin-left: 10px" class="md-tile-left">{{list.title}}</div>
+							<div class="md-tile-content" layout="row" layout-align="end center">
+								<span class="badge">{{list.createdOn | date:'medium'}}</span>
+							</div>
+							<div style="margin-right: 10px" class="md-tile-right">
+								<span>
+									<md-button ng-click="ctrl.editPopup($index,list)" class="md-raised md-primary">
+										<span class="fa fa-pencil-square-o fa-2x"></span>
+										<md-tooltip>Edit Note</md-tooltip>
+									</md-button>
+								</span>
+								<span>
+									<md-button ng-click="ctrl.remove(list, $index)" class="md-raised md-warn">
+										<span class="fa fa-trash-o fa-2x"></span>
+										<md-tooltip>Delete Note</md-tooltip>
+									</md-button>
+								</span>
+							</div>
+						</md-item-content>
+					</md-list>
+					<!-- Edit Note -->
+					<!-- <div ng-show="list.select" class="overlay" novalidate>
+						<div class="noteAppForm">
+							<md-input-container>
+							  <label>Title</label>
+							  <input type="text" ng-model="list.title" required>
+							</md-input-container>
+							<md-input-container>
+							  <label>Note</label>
+							  <textarea ng-model="list.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
+							</md-input-container>
+
+							<md-button ng-click="ctrl.discard()" class="md-raised md-warn"><span style="text-transform: capitalize;">Discard</span></md-button>
+							<md-button ng-click="ctrl.showColour()" class="md-raised md-primary"><span style="text-transform: capitalize;">Choose Colour</span></md-button>
+							<md-button ng-click="ctrl.save(list)" class="md-raised md-primary"><span style="text-transform: capitalize;">Save</span></md-button>
 						</div>
-						<div layout-fill>
-							<span class="badge">{{list.createdOn | date:'medium'}}</span>
-								<span class="quick"><md-button ng-click="ctrl.editPopup($index,list)" class="md-raised md-primary">Edit</md-button></span>
-								<span class="quick"><md-button ng-click="ctrl.remove(list, $index)" class="md-raised md-warn">Delete</md-button></span>
-						</div>
-					</div>
+					</div> -->
 				</md-card>
 			</div>
 
@@ -38,22 +71,19 @@
 			<div class="overlay" ng-show="ctrl.showForm" novalidate> 
 				<!-- <create-note></create-note> -->
 				<form class="noteAppForm" ng-submit="ctrl.newForm()">
-					<md-input-container>
-					  <label>Title</label>
-					  <input type="text" ng-model="ctrl.mydata.title" required>
+					<md-input-container><label>Title</label><input type="text" ng-model="ctrl.mydata.title" required>
 					</md-input-container>
 					<md-input-container>
 					  <label>Note</label>
 					  <textarea ng-model="ctrl.mydata.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
 					</md-input-container>
-
-					<md-button ng-click="ctrl.discard()" class="md-raised md-warn">Discard</md-button>
-					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary">Choose Colour</md-button>
-					<md-button class="md-raised md-primary">Save</md-button>
+					<md-button ng-click="ctrl.discard()" class="md-raised md-warn" style="text-transform: capitalize;">Discard</md-button>
+					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary" style="text-transform: capitalize;">Choose Colour</md-button>
+					<md-button class="md-raised md-primary" style="text-transform: capitalize;">Save</md-button>
 				</form>
 			</div>
 
-			 <!-- Edit Note -->
+			 
 				<!-- <edit-note></edit-note>  -->
 			<div ng-show="ctrl.showForm2" class="overlay" novalidate>
 				<form ng-submit="ctrl.editText()" class="noteAppForm">
@@ -66,33 +96,32 @@
 					  <textarea ng-model="ctrl.selectedList.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
 					</md-input-container>
 
-					<md-button ng-click="ctrl.discard()" class="md-raised md-warn">Discard</md-button>
-					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary">Choose Colour</md-button>
-					<md-button ng-click="ctrl.editTextNote()" class="md-raised md-primary">Save</md-button>
-					<!-- <input type="text" ng-model="ctrl.selectedList.title" class="form-control"><br/>
-					<textarea type="text" rows="7" ng-model="ctrl.selectedList.content"  style="background-color: {{list.bgdColour}}; color: {{list.txtColour}}" class="form-control"></textarea><br/><br/>
-					<input type="submit" ng-click="ctrl.editTextNote()" class="btn btn-success pull-right" value="Save">
-					<input type="button" ng-click="ctrl.remove(list, $index)" class="btn btn-danger" value="Delete"> -->
+					<md-button ng-click="ctrl.discard()" class="md-raised md-warn"><span style="text-transform: capitalize;">Discard</span></md-button>
+					<md-button ng-click="ctrl.showColour()" class="md-raised md-primary"><span style="text-transform: capitalize;">Choose Colour</span></md-button>
+					<md-button ng-click="ctrl.editTextNote()" class="md-raised md-primary"><span style="text-transform: capitalize;">Save</span></md-button>
 				</form>
 			</div>
 
 			<!-- Choose Color Form -->
-			<div class="overlay" ng-show="ctrl.show">
+
+			<div class="overlay" ng-show="ctrl.showColorForm">
 				<div class="pop-up" >	
 					<div class="top"><h4>Enter your preferred colour value</h4><hr/></div>
-					<div class="colour-input">
-						Hue: <input type="number" ng-model = "colour.red" style="width:70px; margin-right:10px;" min="0" max="360" maxlength="3" />
-						Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin-right:10px;" min="0" max="100" maxlength="3" />
-						Light: <input type="number" ng-model="colour.green" style="width:70px; margin-right:10px;" min="0" max="100" maxlength="3" />
+					<div layout="row" layout-align="center center">
+						Hue: <input type="number" ng-model = "colour.red" style="width:70px; margin:0px 15px 0px 5px;" min="0" max="360" maxlength="3" placeholder="0-360"/>
+						Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin:0px 10px;" min="0" max="100" maxlength="3" placeholder="0-100"/>
+						Light: <input type="number" ng-model="colour.green" style="width:70px; margin:0px 10px;" min="0" max="100" maxlength="3" placeholder="0-100"/>
 					</div><hr/>
 					<div>
 						<div class="colour-view" style="background-color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}}); color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}})"></div>
 					</div>
 					<hr/>
 					<div class="colour-btn">
-						<md-button ng-click="ctrl.goBack();" class="md-raised md-warn">Cancel</md-button>
-						<md-button ng-click="ctrl.setTextColour(colour)" class="md-raised md-primary">Save as Text Colour</md-button>
-						<md-button ng-click="ctrl.setBackgroundColour(colour)" class="md-raised md-primary">Save as Background Colour</md-button>
+						<div layout="row" layout-align="end end">
+								<md-button ng-click="ctrl.goBack();" class="md-raised md-warn" style="margin-left:5px;"><span style="text-transform: capitalize;">Cancel</span></md-button>
+								<md-button ng-click="ctrl.setTextColour(colour)" class="md-raised md-primary" style="margin-left:5px;"><span style="text-transform: capitalize;">Save as Text Colour</span></md-button>
+								<md-button ng-click="ctrl.setBackgroundColour(colour)" class="md-raised md-primary" style="margin-left:5px;"><span style="text-transform: capitalize;">Save as Background Colour</span></md-button>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -8,7 +8,7 @@
  		.config(function($mdThemingProvider){
   	$mdThemingProvider.theme('default')
     .primaryPalette('blue')
-    .accentPalette('indigo');
+    .accentPalette('light-blue');
 	});
 
 }());
