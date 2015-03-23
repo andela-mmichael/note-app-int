@@ -1,0 +1,19 @@
+<div class="pop-up" >	
+	<div class="top"><h4>Enter your preferred colour value</h4><hr/></div>
+	<div layout="row" layout-align="center center">
+		Hue: <input type="number" ng-model = "colour.red" style="width:70px; margin:0px 15px 0px 5px;" min="0" max="360" maxlength="3" placeholder="0-360"/>
+		Saturation: <input type="number" ng-model="colour.blue" style="width:70px; margin:0px 10px;" min="0" max="100" maxlength="3" placeholder="0-100"/>
+		Light: <input type="number" ng-model="colour.green" style="width:70px; margin:0px 10px;" min="0" max="100" maxlength="3" placeholder="0-100"/>
+	</div><hr/>
+	<div>
+		<div class="colour-view" style="background-color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}}); color: hsl({{colour.red}},{{colour.green +'%'}},{{colour.blue +'%'}})"></div>
+	</div>
+	<hr/>
+	<div class="colour-btn">
+		<div layout="row" layout-align="end end">
+				<md-button ng-click="ctrl.goBack();" class="md-raised md-warn" style="margin-left:5px;"><span style="text-transform: capitalize;">Cancel</span></md-button>
+				<md-button ng-click="ctrl.setTextColour(colour)" class="md-raised md-primary" style="margin-left:5px;"><span style="text-transform: capitalize;">Save as Text Colour</span></md-button>
+				<md-button ng-click="ctrl.setBackgroundColour(colour)" class="md-raised md-primary" style="margin-left:5px;"><span style="text-transform: capitalize;">Save as Background Colour</span></md-button>
+		</div>
+	</div>
+</div>

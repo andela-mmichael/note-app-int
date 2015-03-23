@@ -4,11 +4,11 @@ angular.module('noteApp')
     this.listNotes = newNote.noteList;
 
     this.showForm = false;
-    this.showForm2 = false;
+    // this.showEditForm = false;
     this.showColorForm = false;
 
-    /* Create new note */
-    this.newForm = function() {
+    // Create new note 
+    this.newForm = function(mydata) {
       this.showForm = true;
       newNote.addNote(this.mydata);
       this.mydata = {};
@@ -16,66 +16,57 @@ angular.module('noteApp')
       this.showForm = false;
     };
 
-    /* Displays form */
+    // Displays new form 
     this.showNote = function() {
       this.showForm = true;
     };
 
-    /* Discards */
     this.discard = function() {
       this.showForm = false;
-      this.showForm2 = false;
-      // list.select = false;
+      // this.showEditForm = false;
     };
 
-    this.editPopup = function(index, list,colour) {
-      this.selectedList = list;
-      this.listIndex = index;
-      this.colour = colour;
-      this.showForm2 = true;
-    };
-
-    this.editTextNote = function() {
-      newNote.editTextNote(this.listIndex, this.selectedList, this.colour);
-      this.discard();
+    this.cancel = function(list){
+      newNote.edited(list);
     };
 
     this.showColour = function() {
       this.showColorForm = true;
     };
 
+    // Sets Text colour
     this.setTextColour = function(colour) {
       this.userTxtColour = newNote.getTextColour(colour);
       this.showColorForm = false;
       this.showForm = true;
-      this.showForm2 = false;
+      // this.showEditForm = false;
     };
 
+    // Sets BAckground Color
     this.setBackgroundColour = function(colour) {
       this.userBgdColour = newNote.getBackgroundColour(colour);
       this.showColorForm = false;
       this.showForm = true;
-      this.showForm2 = false;
+      // this.showEditForm = false;
     };
 
     this.goBack = function() {
       this.showColorForm = false;
       this.showForm = true;
-      this.showForm2 = false;
+      // this.showEditForm = false;
     };
 
-    /* Shows the content for editing. */
+    // Shows the content for editing. 
     this.isSelected = function(list) {
       list.select = true;
     };
 
-    /* Save Edited Note */
+    // Saves Edited Note 
     this.save = function(list) {
-      // newNote.edited(list);
       list.select = false;
     };
 
-    /* Delete Note */
+    // Deletes Note 
     this.remove = function(list, $index) {
     	var removal = confirm("Are you sure you want to delete this note?");
     	if(removal === true){

@@ -1,0 +1,29 @@
+<!-- <form ng-submit="ctrl.editText()" class="noteAppForm">
+  <md-input-container>
+    <label>Title</label>
+    <input type="text" ng-model="ctrl.selectedList.title" required>
+  </md-input-container>
+  <md-input-container>
+    <label>Note</label>
+    <textarea ng-model="ctrl.selectedList.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
+  </md-input-container>
+
+  <md-button ng-click="ctrl.discard()" class="md-raised md-warn"><span style="text-transform: capitalize;">Discard</span></md-button>
+  <md-button ng-click="ctrl.showColour()" class="md-raised md-primary"><span style="text-transform: capitalize;">Choose Colour</span></md-button>
+  <md-button ng-click="ctrl.editTextNote()" class="md-raised md-primary"><span style="text-transform: capitalize;">Save</span></md-button>
+</form> -->
+<div class="noteAppForm">
+  <md-input-container>
+    <label>Title</label>
+    <input type="text" ng-model="list.title" required>
+  </md-input-container>
+
+  <md-input-container>
+    <label>Note</label>
+    <textarea ng-model="list.content" style="background-color: {{ctrl.userBgdColour}}; color: {{ctrl.userTxtColour}}" ></textarea>
+  </md-input-container>
+
+  <md-button ng-click="ctrl.cancel(list)" class="md-raised md-warn"><span style="text-transform: capitalize;">Discard</span></md-button>
+  <md-button ng-click="ctrl.showColour()" class="md-raised md-primary"><span style="text-transform: capitalize;">Choose Colour</span></md-button>
+  <md-button ng-click="ctrl.save(list)" class="md-raised md-primary"><span style="text-transform: capitalize;">Save</span></md-button>
+</div>

@@ -20,10 +20,10 @@ angular.module('noteApp')
       this.noteList.push(newData);
     };
 
-    /* Hides content after editing */
-    // this.edited = function(list) {
-    //   list.select = false;
-    // };
+    // Hides content after editing 
+    this.edited = function(list) {
+      list.select = false;
+    };
     
     /* Updates edited note */
     this.editTextNote = function(index, list) {
