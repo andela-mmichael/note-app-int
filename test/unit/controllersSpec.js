@@ -12,7 +12,7 @@ describe('mainController controllers', function(){
 
 		}));
 
-		it('should if a new note is being created', function(){
+		it('should show if a new note is being created', function(){
 			expect(scope.showBtn).toBeTruthy();
 			expect(scope.showForm).toBeFalsy();
 		});

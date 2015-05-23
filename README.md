@@ -1,5 +1,4 @@
-# Note App
-----------
+#Note App
 
 A simple note taking app project. 
 
